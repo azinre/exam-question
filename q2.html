@@ -34,7 +34,7 @@
                         var options = {
                             color: '#FF0000',
                             weight: 2,
-                            fillOpacity: 0.5
+                            fillOpacity: calculateFillOpacity(feature.properties.hectares)
                         }
                         return options;
                     },
@@ -62,6 +62,19 @@
             //Function to formate stage of control
             function formatStage(stage){
                 return stage=== 'UC' ? 'Under Control' : 'Out of Control'
+            }
+
+            //Function to calculate fill opacity
+            function calculateFillOpacity(hectares){
+                if (hectares < 1 || hectares === null){
+                    return 0; // Transparent
+                }
+                else if (hectares > 1000){
+                    return 1; // Opaque
+                }
+                else {
+                    return 0.5; // Default 
+                }
             }
 
             });
