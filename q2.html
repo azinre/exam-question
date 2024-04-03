@@ -40,6 +40,9 @@
                     },
                     onEachFeature: function (feature, layer) {
                         var popupContent = "<p>"
+                            + "Fire Name: " + feature.properties.firename + "<br/>" //Adding Fire Name on popupContent
+                            + "Stage of Control: " + formatStage(feature.properties.stage_of_control) + "<br/>" // Adding stage of control on popupContent
+                            + "Start Date: " + formatDate(feature.properties.startdate) + "<br/>" //Adding start date on popupContent 
                             + "Size: " + feature.properties.hectares + "<br/>"
                             + "</p>";
                         layer.bindPopup(popupContent);
@@ -48,6 +51,19 @@
                         return L.circleMarker(latlng);
                     }
                 }).addTo(map);
+
+            //Function to format date
+            function formatDate(date){
+                const format = {year: 'numeric', month: 'short', day:'numeric'};
+                const formattedDate = new Date (date).toLocaleDateString(undefined, format);
+                return formattedDate;
+            }
+            
+            //Function to formate stage of control
+            function formatStage(stage){
+                return stage=== 'UC' ? 'Under Control' : 'Out of Control'
+            }
+
             });
     </script>
 </body>
