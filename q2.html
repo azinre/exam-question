@@ -26,7 +26,9 @@
 
         fetch('https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=public:activefires_current&srsname=EPSG:4326&outputFormat=json')
             .then(response => response.json())
-            .then(data => {
+            .then(data => {                
+                //Filtering to only show Alberta
+                const albertaFires = data.features.filter(feature =>feature.properties.agency === 'ab');
                 L.geoJSON(data.features, {
                     style: function (feature) {
                         var options = {

@@ -1,0 +1,15 @@
+diff --git a/q2.html b/q2.html
+index b049c51..324fb84 100644
+--- a/q2.html
++++ b/q2.html
+@@ -27,6 +27,10 @@
+         fetch('https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=public:activefires_current&srsname=EPSG:4326&outputFormat=json')
+             .then(response => response.json())
+             .then(data => {
++                
++                //Filtering to only show Alberta
++                const albertaFires = data.features.filter(feature =>feature.properties.agency === 'ab');
++
+                 L.geoJSON(data.features, {
+                     style: function (feature) {
+                         var options = {
